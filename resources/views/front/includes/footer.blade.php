@@ -1,0 +1,111 @@
+<?php
+ $set= DB::table('settings')->first();
+ $services= DB::table('categories')->where('status',1)->get();
+?>
+ <div class="footer-main">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 footer-col-dark">
+              <a href="{{route('home')}}"><img src="{{asset('assets/front/images/logo-footer.png')}}" style="border-radius:10px" class="img-fluid" /></a>
+              <p class="footer-text">Founded by Eddie Doyle and Brian Nugent in 2006 as D&N Electrical, the company
+                became D&N Group after branching into Reactive, Planned and Preventative
+                Maintenance</p>
+                <ul class="social-list">
+                  <li><a href="{{$set->facebook_link}}" target="blank"><i class="fa fa-facebook fa-size fb-bg"></i></a></li>
+                  <li><a href="{{$set->instagram_link}}" target="blank"><i class="fa fa-instagram fa-size insta-bg"></i></a></li>
+                </ul>
+              
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 footer-col">
+              <h2 class="footer-head">Useful Links</h2>
+              <ul style="list-style: none;">
+                <li class="li-space"><a href="{{route('home')}}" class="footer-links">Home</a></li>
+                <li class="li-space"><a href="{{route('about')}}" class="footer-links">About Us</a></li>
+                <li class="li-space"><a href="{{route('services.all')}}" class="footer-links">Services</a></li>
+                <li class="li-space"><a href="{{route('project.all')}}" class="footer-links">Projects</a></li>
+                <li class="li-space"><a href="{{route('sponsorship')}}" class="footer-links">Sponsorships</a></li>
+                <li class="li-space"><a href="{{route('job.all')}}" class="footer-links">Career</a></li>
+                <li class="li-space"><a href="{{route('privacy')}}" class="footer-links">Privacy Policy</a></li>
+                <li class="li-space"><a href="{{route('contactus')}}" class="footer-links">Contact Us</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 footer-col">
+              <h2 class="footer-head">Services</h2>
+              <ul style="list-style: none;">
+                @foreach($services as $ser)
+                <li class="li-space"><a href="{{route('servicedetail',$ser->id)}}" class="footer-links">{{$ser->title}}</a></li>
+                @endforeach
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 footer-col">
+              <h2 class="footer-head">Contact Us</h2>
+              <ul style="list-style: none;">
+                <li class="li-space">Office: <a href="callto:{{$set->phone}}" class="footer-links">044 937 6730</a></li>
+                <li class="li-space">Eddie: <a href="callto:087 668 7739" class="footer-links">087 668 7739</a></li>
+                <li class="li-space">Brian: <a href="callto:087 965 4916" class="footer-links">087 965 4916</a></li>
+                <li class="li-space">Email: <a href="mailto:{{$set->email}}" class="footer-links">{{$set->email}}</a>
+                </li>
+              </ul>
+              <h2 class="footer-head">Head Office</h2>
+              <ul style="list-style: none;">
+                <li class="li-space">{{$set->address}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-bottom-text">
+              Copyright 2021 | Template designed by <a href="https://dmcconsultancy.com/">DMC Consultancy.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="{{asset('assets/front/js/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/front/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/front/js/navscript.js')}}"></script>
+    <script src="{{asset('assets/front/js/script.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <script src="{{asset('assets/front/js/owl-script.js')}}"></script>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("navbarSupportedContent");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+
+    <script>
+     $(document).ready (function(){
+      $(".close").on('click', function(){
+      $(".mobile-nav").hide();
+    });
+    });
+    </script>
+
+    <script>
+
+
+$(".btn-refresh").click(function(){
+  $.ajax({
+     type:'GET',
+     url: "{{ url('refresh_captcha') }}",
+     success:function(data){
+        $(".captcha span").html(data.captcha);
+     }
+  });
+});
+
+
+</script>
